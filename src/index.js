@@ -122,7 +122,7 @@ function EasyForm({
         return (
           <Fragment key={id}>
             <label htmlFor={id} className="easyform__label">
-              { item.name }
+              { item.label || item.name }
             </label>
             <textarea
               className="easyform__textarea"
@@ -171,6 +171,12 @@ function EasyForm({
       )}
     </form>
   );
+}
+
+export class Schema {
+  constructor(schema) {
+    Object.assign(this, schema);
+  }
 }
 
 export default EasyForm;
