@@ -1,6 +1,6 @@
 {
   "name": "react-easyform-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "source": "src/index.js",
@@ -9,9 +9,15 @@
     "build": "rollup -c",
     "start": "rollup -cw"
   },
-  "files": ["dist/*"],
+  "files": [
+    "dist/*"
+  ],
   "types": "dist/index.d.ts",
-  "keywords": ["react", "form", "schema"],
+  "keywords": [
+    "react",
+    "form",
+    "schema"
+  ],
   "author": "Flavio Tulino",
   "license": "ISC",
   "devDependencies": {
