@@ -1,4 +1,7 @@
-import React, { Fragment, useMemo, useState } from 'react';
+import clsx from 'clsx';
+import React, {
+  Fragment, useMemo, useState,
+} from 'react';
 import BaseField from './BaseField';
 import useDefaults from './hooks/useDefaults';
 import RadioField from './RadioField';
@@ -10,6 +13,7 @@ function EasyForm({
   onErrors,
   noValidate = false,
   children: submitButton = null,
+  className,
   theme = {},
 }) {
   const defaults = useDefaults(schema);
@@ -125,7 +129,7 @@ function EasyForm({
               { item.label || item.name }
             </label>
             <textarea
-              className="easyform__textarea"
+              className={clsx('easyform__textarea', item.className)}
               id={id}
               name={item.name}
               value={data[item.name]}
@@ -163,7 +167,7 @@ function EasyForm({
   }), [schema, data]);
 
   return (
-    <form onSubmit={handleSubit} className="easyform" noValidate={noValidate}>
+    <form onSubmit={handleSubit} className={clsx('easyform', className)} noValidate={noValidate}>
       { fields }
       { submitButton }
       { !submitButton && (
@@ -178,5 +182,4 @@ export class Schema {
     Object.assign(this, schema);
   }
 }
-
 export default EasyForm;

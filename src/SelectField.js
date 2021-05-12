@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import SelectFieldOption from './SelectFieldOption';
 
 function SelectField({
@@ -13,7 +14,7 @@ function SelectField({
       </label>
 
       <select
-        className="easyform__select"
+        className={clsx('easyform__select', item.className)}
         id={id}
         onChange={handleChange}
         name={item.name}

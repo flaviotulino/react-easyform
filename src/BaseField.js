@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import clsx from 'clsx';
 
 function BaseField({
   item, handleChange, value, id,
@@ -16,7 +17,7 @@ function BaseField({
         {item.label || item.name}
       </label>
       <input
-        className={`easyform__input easyform__input--${item.type}`}
+        className={clsx(`easyform__input easyform__input--${item.type}`, item.className)}
         id={id}
         type={item.type}
         name={item.name}

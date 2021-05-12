@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 function RadioFieldOption({
   item, option, handleChange, isFirst,
@@ -24,7 +25,7 @@ function RadioFieldOption({
         { label }
       </label>
       <input
-        className="easyform__input easyform__input--radio"
+        className={clsx('easyform__input easyform__input--radio', item.className)}
         id={id}
         type="radio"
         name={item.name}
