@@ -27,6 +27,15 @@ const config = [{
       external,
       globals,
     },
+    {
+      file: pkg.main,
+      name: 'EasyForm',
+      format: 'umd',
+      sourcemap: true,
+      exports: 'named',
+      external,
+      globals,
+    },
   ],
   plugins: [
     babel({
@@ -89,7 +98,7 @@ const exampleConfig = {
   ],
 };
 
-if (process.env.RUN_SERVER) {
+if (process.env.RUN_SERVER === 'true') {
   config.push(exampleConfig);
 }
 
