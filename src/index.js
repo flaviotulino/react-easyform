@@ -78,11 +78,11 @@ function EasyForm({
     if (validate === 'submit') {
       const submitErrors = validation(children);
       if (submitErrors) {
-        return setErrors(submitErrors);
+        setErrors(submitErrors);
       }
     }
 
-    return onSubmit(data);
+    return onSubmit(data, errors);
   }
 
   const fields = useMemo(() => schema.map((item) => {
