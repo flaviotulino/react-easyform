@@ -28,6 +28,7 @@ function EasyForm({
       if (element.validity && element.validity.valid === false) {
         localErrors[element.name] = element.validity;
         localErrors[element.name].name = element.name;
+        localErrors[element.name].message = element.validationMessage;
       }
     });
 
