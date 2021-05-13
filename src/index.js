@@ -10,15 +10,33 @@ import SelectField from './SelectField';
 function EasyForm({
   schema,
   onSubmit,
-  onErrors,
-  noValidate = false,
-  children: submitButton = null,
   className,
   theme = {},
+  validate = undefined,
+  before: Before = null,
+  after: After = null,
+  submitButton = null,
 }) {
   const defaults = useDefaults(schema);
   const [data, setData] = useState(defaults);
   const [errors, setErrors] = useState(null);
+
+  function validation(items) {
+    const localErrors = {};
+
+    Array.from(items).forEach((element) => {
+      if (element.validity && element.validity.valid === false) {
+        localErrors[element.name] = element.validity;
+        localErrors[element.name].name = element.name;
+      }
+    });
+
+    if (Object.keys(localErrors).length > 0) {
+      return localErrors;
+    }
+
+    return false;
+  }
 
   function handleChange(event) {
     const { target } = event;
@@ -42,6 +60,13 @@ function EasyForm({
       ...data,
       [target.name]: value,
     });
+
+    if (validate === 'change') {
+      const changeErrors = validation([target]);
+      if (changeErrors) {
+        setErrors(changeErrors);
+      }
+    }
   }
 
   function handleSubit(event) {
@@ -50,22 +75,10 @@ function EasyForm({
     const { target } = event;
     const children = target.querySelectorAll('input, textarea, select');
 
-    if (noValidate) {
-      const localErrors = {};
-
-      Array.from(children).forEach((element) => {
-        if (element.validity && element.validity.valid === false) {
-          localErrors[element.name] = element.validity;
-        }
-      });
-
-      if (Object.keys(localErrors).length > 0) {
-        setErrors(localErrors);
-        if (typeof onErrors === 'function') {
-          return onErrors(errors);
-        }
-      } else {
-        setErrors(null);
+    if (validate === 'submit') {
+      const submitErrors = validation(children);
+      if (submitErrors) {
+        return setErrors(submitErrors);
       }
     }
 
@@ -167,8 +180,10 @@ function EasyForm({
   }), [schema, data]);
 
   return (
-    <form onSubmit={handleSubit} className={clsx('easyform', className)} noValidate={noValidate}>
+    <form onSubmit={handleSubit} className={clsx('easyform', className)} noValidate={validate !== undefined}>
+      { Before && <Before data={data} errors={errors} /> }
       { fields }
+      { After && <After data={data} errors={errors} /> }
       { submitButton }
       { !submitButton && (
         <button type="submit" className="easyform__submit">Submit</button>
@@ -182,4 +197,5 @@ export class Schema {
     Object.assign(this, schema);
   }
 }
+
 export default EasyForm;
