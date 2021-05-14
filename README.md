@@ -47,6 +47,9 @@ The schema property accepts an Array of Objects, with each Object shaped like th
 
   // optional, sets a default value
   default: 'a default value', 
+
+  // optional, classes to add to the element
+  className: 'input',
   
   // optional, any HTML5 valid attribute
   attributes: {
