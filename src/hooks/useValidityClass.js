@@ -1,26 +1,26 @@
 function useValidityClass(ref, css) {
   if (!ref.current) return '';
-  if (ref.current.valid) return '';
+  const { validity } = ref.current;
+  if (validity.valid) return '';
 
-  const { current } = ref;
   let error = `${css}--invalid ${css}--`;
-  if (current.badInput) {
+  if (validity.badInput) {
     error += 'bad-input';
-  } else if (current.patternMismatch) {
+  } else if (validity.patternMismatch) {
     error += 'pattern-mismatch';
-  } else if (current.rangeOverflow) {
+  } else if (validity.rangeOverflow) {
     error += 'range-overflow';
-  } else if (current.rangeUnderflow) {
+  } else if (validity.rangeUnderflow) {
     error += 'range-underflow';
-  } else if (current.stepMismatch) {
+  } else if (validity.stepMismatch) {
     error += 'step-mismatch';
-  } else if (current.tooLong) {
+  } else if (validity.tooLong) {
     error += 'too-long';
-  } else if (current.tooShort) {
+  } else if (validity.tooShort) {
     error += 'too-short';
-  } else if (current.typeMismatch) {
+  } else if (validity.typeMismatch) {
     error += 'type-mismatch';
-  } else if (current.valueMissing) {
+  } else if (validity.valueMissing) {
     error += 'value-missing';
   }
 
