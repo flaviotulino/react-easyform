@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import clsx from 'clsx';
+import useValidityClass from './hooks/useValidityClass';
 
 function BaseField({
   item, handleChange, value, id,
 }) {
+  const ref = useRef(null);
+
   const valueProp = {};
   if (item.type === 'checkbox') {
     valueProp.checked = value;
@@ -11,13 +14,16 @@ function BaseField({
     valueProp.value = value;
   }
 
+  const validity = useValidityClass(ref, 'easyform__input');
+
   return (
     <>
       <label htmlFor={id} className="easyform__label">
         {item.label || item.name}
       </label>
       <input
-        className={clsx(`easyform__input easyform__input--${item.type}`, item.className)}
+        ref={ref}
+        className={clsx(`easyform__input easyform__input--${item.type}`, item.className, validity)}
         id={id}
         type={item.type}
         name={item.name}
